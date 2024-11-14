@@ -1,14 +1,17 @@
 import 'package:dio/dio.dart';
-import 'package:news_app/core/utils/constants.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:retrofit/retrofit.dart';
 
 import '../../models/article.dart';
 
 part 'news_api_service.g.dart';
 
-@RestApi(baseUrl: newsApiBaseUrl)
+@RestApi()
 abstract class NewsApiService {
-  factory NewsApiService(Dio dio) = _NewsApiService;
+  factory NewsApiService(Dio dio) {
+    final baseUrl = dotenv.env["NEWS_API_BASE_URL"]!;
+    return _NewsApiService(dio, baseUrl: baseUrl);
+  }
 
   @GET("/top-headlines")
   Future<HttpResponse<List<ArticleModel>>> getNewsArticles({
