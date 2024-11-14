@@ -1,10 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:logging/logging.dart';
 
 void main() async{
   await dotenv.load(fileName: ".env");
   runApp(const MyApp());
 }
+void _setupLogging() {
+  Logger.root.level = Level.ALL; // Set the logging level
+  Logger.root.onRecord.listen((record) {
+    print('${record.level.name}: ${record.time}: ${record.message}');
+  });
+}
+
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
@@ -58,8 +66,10 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   int _counter = 0;
+  final Logger _log = Logger('MyHomePage');
 
   void _incrementCounter() {
+
     setState(() {
       // This call to setState tells the Flutter framework that something has
       // changed in this State, which causes it to rerun the build method below
@@ -67,6 +77,7 @@ class _MyHomePageState extends State<MyHomePage> {
       // _counter without calling setState(), then the build method would not be
       // called again, and so nothing would appear to happen.
       _counter++;
+      _log.info('Incrementing counter');
     });
   }
 
