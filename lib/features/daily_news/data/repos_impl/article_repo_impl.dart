@@ -6,7 +6,7 @@ import 'package:news_app/features/daily_news/domain/repos/article_repo.dart';
 class ArticleRepoImpl implements ArticleRepo{
   @override
   Future<DataState<List<ArticleModel>>> getArticles() {
-
+    throw UnimplementedError();
   }
 
 }
