@@ -10,34 +10,33 @@ class DailyNews extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        centerTitle: true,
-        title: const Text(
-          'Daily News',
-          style: TextStyle(color: Colors.black),
+        appBar: AppBar(
+          centerTitle: true,
+          title: const Text(
+            'Daily News',
+            style: TextStyle(color: Colors.black),
+          ),
         ),
-      ),
-      body: BlocBuilder<RemoteArticleBloc,RemoteArticleState>(builder: (_,state) {
-        if(state is RemoteArticlesLoading){
-          return const Center(
-            child: CupertinoActivityIndicator(),
-          );
-        } else if(state is RemoteArticlesLoaded){
-          return ListView.builder(
-            itemCount: state.articles!.length,
-            itemBuilder: (_,index){
-              return ListTile(
-                title: Text(state.articles![index].title!),
-              );
-            },
-          );
-        } else {
-          return Center(
-            child: Text(state.error!.message),
-          );
-        }
-      })
-    );
+        body: BlocBuilder<RemoteArticleBloc, RemoteArticleState>(
+            builder: (_, state) {
+          if (state is RemoteArticlesLoading) {
+            return const Center(
+              child: CupertinoActivityIndicator(),
+            );
+          } else if (state is RemoteArticlesLoaded) {
+            return ListView.builder(
+              itemCount: state.articles!.length,
+              itemBuilder: (_, index) {
+                return ListTile(
+                  title: Text(state.articles![index].title!),
+                );
+              },
+            );
+          } else {
+            return Center(
+              child: Text(state.error!.message),
+            );
+          }
+        }));
   }
-
 }

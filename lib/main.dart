@@ -3,26 +3,25 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:logging/logging.dart';
 import 'package:news_app/di.dart';
-import 'package:news_app/features/daily_news/domain/usecases/get_article.dart';
 import 'package:news_app/features/daily_news/presentation/bloc/article/remote/remote_article_bloc.dart';
 import 'package:news_app/features/daily_news/presentation/bloc/article/remote/remote_article_event.dart';
 import 'package:news_app/features/daily_news/presentation/pages/home/daily_news.dart';
 
 void main() async {
   _setupLogging();
-  Logger log=Logger("NewsApp");
+  Logger log = Logger("NewsApp");
   log.info("Starting NewsApp");
-  try{
+  try {
     await dotenv.load(fileName: ".env");
     log.info("Loaded .env file");
-  } catch(e){
+  } catch (e) {
     log.severe("Error loading .env file");
     log.severe(e);
   }
-  try{
+  try {
     await initdependencies();
     log.info("Initialized dependencies");
-  } catch(e){
+  } catch (e) {
     log.severe("Error initializing dependencies");
     log.severe(e);
   }
@@ -42,11 +41,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider<RemoteArticleBloc>(
-      create: (context) {
-        final bloc = RemoteArticleBloc(sl());
-        bloc.add(const GetArticles());
-        return bloc;
-      },
+      create: (context) => sl()..add(const GetArticles()),
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
         title: 'Flutter Demo',
