@@ -33,7 +33,7 @@ class DailyNews extends StatelessWidget {
             );
           } else {
             return Center(
-              child: Text(state.error!.message),
+
             );
           }
         })
