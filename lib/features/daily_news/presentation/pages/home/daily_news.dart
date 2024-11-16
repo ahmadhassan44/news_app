@@ -33,7 +33,23 @@ class DailyNews extends StatelessWidget {
             );
           } else {
             return Center(
-
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children:[
+                  Image.asset(
+                    "assets/images/wrong.png",
+                    width: MediaQuery.of(context).size.width * 0.25,
+                    height: MediaQuery.of(context).size.height * 0.10,
+                  ),
+                  const Text(
+                    "Something went wrong",
+                    style: TextStyle(
+                      fontSize: 20,
+                      fontWeight: FontWeight.w300,
+                    ),
+                  )
+                ]
+              ),
             );
           }
         })

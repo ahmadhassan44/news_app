@@ -1,8 +1,9 @@
+import 'dart:io';
+
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:news_app/features/daily_news/domain/entities/article.dart';
-
+=
 class ArticleTile extends StatelessWidget {
   final ArticleEntity article;
   const ArticleTile({
@@ -45,7 +46,7 @@ class ArticleTile extends StatelessWidget {
                 imageUrl: article.urlToImage ?? 'https://via.placeholder.com/150',
                 fit: BoxFit.cover,
                 placeholder: (context, url) => Center(child: CircularProgressIndicator()),
-                errorWidget: (context, url, error) => Image.network('https://via.placeholder.com/150'),
+                errorWidget: (context, url, error) => Image.asset('assets/images/placeholder-image.jpg'),
               ),
             ),
           ),
