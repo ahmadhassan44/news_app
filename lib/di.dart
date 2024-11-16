@@ -1,11 +1,11 @@
 import 'package:dio/dio.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:get_it/get_it.dart';
-import 'package:news_app/features/daily_news/data/data_sources/local/app_database.dart';
+import 'package:logging/logging.dart';
 import 'package:news_app/features/daily_news/data/repos_impl/article_repo_impl.dart';
 import 'package:news_app/features/daily_news/domain/repos/article_repo.dart';
 import 'package:news_app/features/daily_news/domain/usecases/get_article.dart';
 import 'package:news_app/features/daily_news/presentation/bloc/article/remote/remote_article_bloc.dart';
-import 'package:logging/logging.dart';
 
 import 'features/daily_news/data/data_sources/remote/news_api_service.dart';
 
@@ -16,12 +16,12 @@ Future<void> initdependencies() async {
   try {
     log.info('Starting dependency initialization');
 
-    final database=await $FloorAppDatabase.databaseBuilder("app_database.db").build();
-    sl.registerSingleton<AppDatabase>(database);
+    // final database=await $FloorAppDatabase.databaseBuilder("app_database.db").build();
+    // sl.registerSingleton<AppDatabase>(database);
     log.info('Registered DataBase');
 
-    // Register Dio as a singleton
-    final dio = Dio();
+    // Init DIO with base URL
+    final dio = Dio(BaseOptions(baseUrl: dotenv.env['BASE_URL']!));
     sl.registerSingleton<Dio>(dio);
     log.info('Registered Dio');
 
