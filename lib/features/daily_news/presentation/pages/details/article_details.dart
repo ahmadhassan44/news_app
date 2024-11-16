@@ -1,11 +1,9 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:news_app/features/daily_news/data/models/article.dart';
 import 'package:news_app/features/daily_news/domain/entities/article.dart';
 
 class ArticleDetails extends StatefulWidget {
   final ArticleEntity article;
-  const ArticleDetails({Key? key, required this.article}) : super(key: key);
+  const ArticleDetails({super.key,  required this.article});
 
   @override
   State<ArticleDetails> createState() => _ArticleDetailsState();
