@@ -8,6 +8,7 @@ import 'package:news_app/features/daily_news/presentation/bloc/article/remote/re
 import 'package:news_app/features/daily_news/presentation/pages/home/daily_news.dart';
 
 void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
   _setupLogging();
   Logger log = Logger("NewsApp");
   log.info("Starting NewsApp");
