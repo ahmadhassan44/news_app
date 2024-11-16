@@ -5,7 +5,8 @@ import 'package:logging/logging.dart';
 import 'package:news_app/di.dart';
 import 'package:news_app/features/daily_news/presentation/bloc/article/remote/remote_article_bloc.dart';
 import 'package:news_app/features/daily_news/presentation/bloc/article/remote/remote_article_event.dart';
-import 'package:news_app/features/daily_news/presentation/pages/home/daily_news.dart';
+import 'package:news_app/features/daily_news/presentation/pages/landing/daily_news.dart';
+import 'package:news_app/features/daily_news/presentation/pages/landing/landing_screen.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -50,7 +51,7 @@ class MyApp extends StatelessWidget {
           colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
           useMaterial3: true,
         ),
-        home: const DailyNews(),
+        home: const LandingScreen(),
       ),
     );
   }
