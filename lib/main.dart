@@ -43,7 +43,9 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider<RemoteArticleBloc>(
-      create: (context) => sl()..add(const GetArticles()),
+      create: (context) => sl()
+        ..add(const GetRemoteArticles())
+        ..add(const GetLocalArticles()),
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
         title: 'Flutter Demo',
