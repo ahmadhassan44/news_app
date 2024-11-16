@@ -36,6 +36,7 @@ class DailyNews extends StatelessWidget {
               child: Text(state.error!.message),
             );
           }
-        }));
+        })
+    );
   }
 }

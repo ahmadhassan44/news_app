@@ -22,7 +22,7 @@ class ArticleTile extends StatelessWidget {
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(12),
-        boxShadow: [
+        boxShadow: const [
           BoxShadow(
             color: Colors.black12,
             blurRadius: 8,
@@ -56,23 +56,23 @@ class ArticleTile extends StatelessWidget {
               children: [
                 Text(
                   article.title ?? 'No Title',
-                  style: TextStyle(
+                  style: const TextStyle(
                     fontSize: 16,
                     fontWeight: FontWeight.bold,
-                    color: Colors.black87,
+                    color: Colors.black87,  
                   ),
                   maxLines: 3,
                   overflow: TextOverflow.ellipsis,
                 ),
-                SizedBox(height: 8),
-                Text(
-                  article.description ?? 'No Description',
-                  style: TextStyle(
-                    fontSize: 14,
-                    color: Colors.black54,
+                const SizedBox(height: 8),
+                Expanded(
+                  child: Text(
+                    article.description ?? 'No Description',
+                    style: const TextStyle(
+                      fontSize: 14,
+                      color: Colors.black54,
+                    ),
                   ),
-                  maxLines: 3,
-                  overflow: TextOverflow.ellipsis,
                 ),
               ],
             ),

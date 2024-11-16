@@ -6,11 +6,10 @@ import 'package:news_app/features/daily_news/presentation/bloc/article/remote/re
 
 class RemoteArticleBloc extends Bloc<RemoteArticleEvent, RemoteArticleState> {
   final GetArticleUsecase _getArticles;
-
   RemoteArticleBloc(this._getArticles) : super(const RemoteArticlesLoading()) {
     on<GetArticles>(onGetArticles);
+    on<OpenArticle>(onOpenArticle);
   }
-
   void onGetArticles(
       GetArticles event, Emitter<RemoteArticleState> emit) async {
     final dataState = await _getArticles();
@@ -20,5 +19,8 @@ class RemoteArticleBloc extends Bloc<RemoteArticleEvent, RemoteArticleState> {
     } else {
       emit(RemoteArticlesLoadingFailed(dataState.error!));
     }
+  }
+  void onOpenArticle(OpenArticle event, Emitter<RemoteArticleState> emit){
+
   }
 }
