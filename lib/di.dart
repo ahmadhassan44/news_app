@@ -13,6 +13,7 @@ import 'package:news_app/features/daily_news/presentation/bloc/article/local/loc
 import 'package:news_app/features/daily_news/presentation/bloc/article/remote/remote_article_bloc.dart';
 
 import 'features/daily_news/data/data_sources/remote/news_api_service.dart';
+import 'features/daily_news/domain/usecases/delete_article.dart';
 
 final sl = GetIt.I;
 final Logger log = Logger('initdependencies');
@@ -63,7 +64,7 @@ Future<void> initdependencies() async {
     );
     log.info('Registered RemoteArticleBloc');
     sl.registerFactory<LocalArticlesBloc>(
-          () => LocalArticlesBloc(sl<GetSavedArticlesUsecase>()),
+          () => LocalArticlesBloc(sl<GetSavedArticlesUsecase>(),sl<DeleteArticleUsecase>()),
     );
     log.info('Registered LocalArticlesBloc');
     sl.registerFactory<ArticleDetailsBloc>(

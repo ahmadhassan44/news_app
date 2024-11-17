@@ -6,6 +6,7 @@ import 'package:news_app/features/daily_news/presentation/bloc/article/details/a
 import 'package:news_app/features/daily_news/presentation/bloc/article/local/local_articles_bloc.dart';
 import 'package:news_app/features/daily_news/presentation/bloc/article/local/local_articles_events.dart';
 import 'package:news_app/features/daily_news/presentation/bloc/article/local/local_articles_state.dart';
+import 'package:news_app/features/daily_news/presentation/widgets/saved_article_tile.dart';
 
 import '../../bloc/article/details/article_details_states.dart';
 import '../../widgets/article_tile.dart';
@@ -62,7 +63,7 @@ class SavedScreen extends StatelessWidget {
                     controller: scrollController,
                     itemCount: state.articles!.length,
                     itemBuilder: (_, index) {
-                      return ArticleTile(article: state.articles![index]);
+                      return SavedArticleTile(article: state.articles![index]);
                     },
                   ),
                 );
