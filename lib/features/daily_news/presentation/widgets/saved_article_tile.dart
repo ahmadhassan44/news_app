@@ -101,11 +101,8 @@ class SavedArticleTile extends StatelessWidget {
                     child:
                     GestureDetector(
                       onTap: () {
-                        Logger log=Logger('ArticleTile');
-                        log.info('ArticleTile: Article deleted');
                         context.read<LocalArticlesBloc>().add(LocalArticleDeleted(article));
                         context.read<LocalArticlesBloc>().add(const LocalArticlesLoad());
-                        log.info("control is here");
                       },
                       child: const Icon(Icons.delete, color: Colors.red),
                     ),

@@ -17,11 +17,9 @@ class LocalArticlesBloc extends Bloc<LocalArticlesEvents, LocalArticlesState> {
   }
 
   void _onGetSavedArticles(LocalArticlesLoad event, Emitter<LocalArticlesState> emit) async {
-    _logger.info("LocalArticlesLoad event received");
     emit(const LocalArticlesLoading());
     try {
       final articles = await _getSavedArticlesUsecase();
-      _logger.info("Local Articles: $articles");
       emit(LocalArticlesLoaded(articles));
     } catch (e) {
       _logger.severe("Failed to load local articles", e);
@@ -29,11 +27,9 @@ class LocalArticlesBloc extends Bloc<LocalArticlesEvents, LocalArticlesState> {
   }
 
   void _onDeleteArticle(LocalArticleDeleted event, Emitter<LocalArticlesState> emit) async {
-    _logger.info("LocalArticleDeleted event received");
     try {
       await _deleteArticleUsecase.call(params: event.article);
       final articles = await _getSavedArticlesUsecase();
-      _logger.info("Local Articles after deletion: $articles");
       emit(LocalArticlesLoaded(articles));
     } catch (e) {
       _logger.severe("Failed to delete local article", e);

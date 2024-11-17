@@ -57,6 +57,10 @@ Future<void> initdependencies() async {
       SaveArticlesUsecase(sl<ArticleRepo>()),
     );
     log.info('Registered SaveArticlesUsecase');
+    sl.registerSingleton<DeleteArticleUsecase>(
+      DeleteArticleUsecase(sl<ArticleRepo>()),
+    );
+    log.info('Registered DeleteArticleUsecase');
 
     // RemoteArticleBloc
     sl.registerFactory<RemoteArticleBloc>(

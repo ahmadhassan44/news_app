@@ -8,6 +8,6 @@ abstract class ArticleDao{
   Future<void> insertArticle(ArticleModel article);
   @Query("SELECT * FROM articles")
   Future<List<ArticleModel>> getArticles();
-  @delete
+  @Query("DELETE FROM articles WHERE url=:url OR title=:title OR description=:description")
   Future<void> deleteArticle(ArticleModel article);
 }

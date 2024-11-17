@@ -47,6 +47,8 @@ class ArticleRepoImpl implements ArticleRepo{
 
   @override
   Future<void> deleteArticle(ArticleEntity article) {
+    final Logger log=Logger('DeleteArticleUsecase');
+    log.info('Deleting article database call: $article');
     return _appDatabase.articleDao.deleteArticle(ArticleModel.fromEntity(article));
   }
 
