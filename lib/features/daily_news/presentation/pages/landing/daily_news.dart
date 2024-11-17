@@ -10,6 +10,7 @@ class DailyNews extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final ScrollController scrollController = ScrollController();
     return Scaffold(
         body: BlocBuilder<RemoteArticleBloc, RemoteArticleState>(
             builder: (_, state) {
@@ -19,6 +20,8 @@ class DailyNews extends StatelessWidget {
             );
           } else if (state is RemoteArticlesLoaded) {
             return ListView.builder(
+              key: const PageStorageKey<String>('daily_news'),
+              controller: scrollController,
               itemCount: state.articles!.length,
               itemBuilder: (_, index) {
                 return ArticleTile(article: state.articles![index]);

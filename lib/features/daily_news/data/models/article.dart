@@ -1,7 +1,7 @@
 import 'package:floor/floor.dart';
 import 'package:news_app/features/daily_news/domain/entities/article.dart';
 
-@Entity(tableName: 'articles', primaryKeys: ['id'])
+@Entity(tableName: 'articles', primaryKeys: ['id','title'])
 class ArticleModel extends ArticleEntity {
   final int? id;
   final String? author;

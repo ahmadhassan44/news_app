@@ -3,6 +3,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:logging/logging.dart';
 import 'package:news_app/di.dart';
+import 'package:news_app/features/daily_news/presentation/bloc/article/details/article_details_bloc.dart';
+import 'package:news_app/features/daily_news/presentation/bloc/article/details/article_details_events.dart';
+import 'package:news_app/features/daily_news/presentation/bloc/article/details/article_details_states.dart';
 import 'package:news_app/features/daily_news/presentation/bloc/article/local/local_articles_bloc.dart';
 import 'package:news_app/features/daily_news/presentation/bloc/article/remote/remote_article_bloc.dart';
 import 'package:news_app/features/daily_news/presentation/bloc/article/remote/remote_article_event.dart';
@@ -53,6 +56,8 @@ class MyApp extends StatelessWidget {
                 ..add(const GetLocalArticles())),
           BlocProvider<LocalArticlesBloc>(
               create: (context) => sl()..add(const LocalArticlesLoad())),
+          BlocProvider<ArticleDetailsBloc>(
+              create: (context) => sl()..add(const ArticleUnsavedEvent())),
         ],
         child: MaterialApp(
           debugShowCheckedModeBanner: false,

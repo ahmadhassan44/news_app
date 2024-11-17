@@ -124,19 +124,11 @@ class _$ArticleDao extends ArticleDao {
                   'urlToImage': item.urlToImage,
                   'publishedAt': item.publishedAt,
                   'content': item.content,
-                  'id': item.id,
-                  'author': item.author,
-                  'title': item.title,
-                  'description': item.description,
-                  'url': item.url,
-                  'urlToImage': item.urlToImage,
-                  'publishedAt': item.publishedAt,
-                  'content': item.content
                 }),
         _articleModelDeletionAdapter = DeletionAdapter(
             database,
             'articles',
-            ['id', 'id'],
+            ['id'],
             (ArticleModel item) => <String, Object?>{
                   'id': item.id,
                   'author': item.author,
@@ -146,14 +138,6 @@ class _$ArticleDao extends ArticleDao {
                   'urlToImage': item.urlToImage,
                   'publishedAt': item.publishedAt,
                   'content': item.content,
-                  'id': item.id,
-                  'author': item.author,
-                  'title': item.title,
-                  'description': item.description,
-                  'url': item.url,
-                  'urlToImage': item.urlToImage,
-                  'publishedAt': item.publishedAt,
-                  'content': item.content
                 });
 
   final sqflite.DatabaseExecutor database;

@@ -4,17 +4,24 @@ import 'package:news_app/features/daily_news/domain/usecases/get_saved_articles.
 import 'package:news_app/features/daily_news/presentation/bloc/article/local/local_articles_events.dart';
 import 'package:news_app/features/daily_news/presentation/bloc/article/local/local_articles_state.dart';
 
-
 final Logger _logger = Logger('LocalArticlesBloc');
-class LocalArticlesBloc extends Bloc<LocalArticlesEvents,LocalArticlesState>{
+
+class LocalArticlesBloc extends Bloc<LocalArticlesEvents, LocalArticlesState> {
   final GetSavedArticlesUsecase _getSavedArticlesUsecase;
-  LocalArticlesBloc(this._getSavedArticlesUsecase):super(const LocalArticlesLoading()){
+
+  LocalArticlesBloc(this._getSavedArticlesUsecase) : super(const LocalArticlesLoading()) {
     on<LocalArticlesLoad>(_onGetSavedArticles);
   }
+
   void _onGetSavedArticles(LocalArticlesLoad event, Emitter<LocalArticlesState> emit) async {
     _logger.info("LocalArticlesLoad event received");
-    final articles = await _getSavedArticlesUsecase();
-    _logger.info("Local Articles: $articles");
-    emit(LocalArticlesLoaded(articles));
+    emit(const LocalArticlesLoading());
+    try {
+      final articles = await _getSavedArticlesUsecase();
+      _logger.info("Local Articles: $articles");
+      emit(LocalArticlesLoaded(articles));
+    } catch (e) {
+      _logger.severe("Failed to load local articles", e);
+    }
   }
 }

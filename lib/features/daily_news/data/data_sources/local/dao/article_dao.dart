@@ -4,7 +4,7 @@ import 'package:news_app/features/daily_news/data/models/article.dart';
 
 @dao
 abstract class ArticleDao{
-  @Insert()
+  @Insert(onConflict: OnConflictStrategy.abort)
   Future<void> insertArticle(ArticleModel article);
   @Query("SELECT * FROM articles")
   Future<List<ArticleModel>> getArticles();

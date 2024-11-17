@@ -7,6 +7,8 @@ import 'package:news_app/features/daily_news/data/repos_impl/article_repo_impl.d
 import 'package:news_app/features/daily_news/domain/repos/article_repo.dart';
 import 'package:news_app/features/daily_news/domain/usecases/get_article.dart';
 import 'package:news_app/features/daily_news/domain/usecases/get_saved_articles.dart';
+import 'package:news_app/features/daily_news/domain/usecases/save_article.dart';
+import 'package:news_app/features/daily_news/presentation/bloc/article/details/article_details_bloc.dart';
 import 'package:news_app/features/daily_news/presentation/bloc/article/local/local_articles_bloc.dart';
 import 'package:news_app/features/daily_news/presentation/bloc/article/remote/remote_article_bloc.dart';
 
@@ -50,6 +52,10 @@ Future<void> initdependencies() async {
       GetSavedArticlesUsecase(sl<ArticleRepo>()),
     );
     log.info('Registered GetSavedArticlesUsecase');
+    sl.registerSingleton<SaveArticlesUsecase>(
+      SaveArticlesUsecase(sl<ArticleRepo>()),
+    );
+    log.info('Registered SaveArticlesUsecase');
 
     // RemoteArticleBloc
     sl.registerFactory<RemoteArticleBloc>(
@@ -60,6 +66,11 @@ Future<void> initdependencies() async {
           () => LocalArticlesBloc(sl<GetSavedArticlesUsecase>()),
     );
     log.info('Registered LocalArticlesBloc');
+    sl.registerFactory<ArticleDetailsBloc>(
+          () => ArticleDetailsBloc(sl<SaveArticlesUsecase>()),
+    );
+    log.info('Registered ArticleDetailsBloc');
+
     log.info('Completed dependency initialization');
   } catch (e, stackTrace) {
     log.severe('Error during dependency registration', e, stackTrace);
