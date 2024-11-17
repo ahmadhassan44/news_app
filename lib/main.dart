@@ -3,10 +3,13 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:logging/logging.dart';
 import 'package:news_app/di.dart';
+import 'package:news_app/features/daily_news/presentation/bloc/article/local/local_articles_bloc.dart';
 import 'package:news_app/features/daily_news/presentation/bloc/article/remote/remote_article_bloc.dart';
 import 'package:news_app/features/daily_news/presentation/bloc/article/remote/remote_article_event.dart';
 import 'package:news_app/features/daily_news/presentation/pages/landing/daily_news.dart';
 import 'package:news_app/features/daily_news/presentation/pages/landing/landing_screen.dart';
+
+import 'features/daily_news/presentation/bloc/article/local/local_articles_events.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -42,6 +45,24 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    return MultiBlocProvider(
+        providers: [
+          BlocProvider<RemoteArticleBloc>(
+              create: (context) => sl()
+                ..add(const GetRemoteArticles())
+                ..add(const GetLocalArticles())),
+          BlocProvider<LocalArticlesBloc>(
+              create: (context) => sl()..add(const LocalArticlesLoad())),
+        ],
+        child: MaterialApp(
+          debugShowCheckedModeBanner: false,
+          title: 'Flutter Demo',
+          theme: ThemeData(
+            colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+            useMaterial3: true,
+          ),
+          home: const LandingScreen(),
+        ));
     return BlocProvider<RemoteArticleBloc>(
       create: (context) => sl()
         ..add(const GetRemoteArticles())

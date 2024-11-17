@@ -2,9 +2,12 @@ import 'package:dio/dio.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:get_it/get_it.dart';
 import 'package:logging/logging.dart';
+import 'package:news_app/features/daily_news/data/data_sources/local/database/news_app_database.dart';
 import 'package:news_app/features/daily_news/data/repos_impl/article_repo_impl.dart';
 import 'package:news_app/features/daily_news/domain/repos/article_repo.dart';
 import 'package:news_app/features/daily_news/domain/usecases/get_article.dart';
+import 'package:news_app/features/daily_news/domain/usecases/get_saved_articles.dart';
+import 'package:news_app/features/daily_news/presentation/bloc/article/local/local_articles_bloc.dart';
 import 'package:news_app/features/daily_news/presentation/bloc/article/remote/remote_article_bloc.dart';
 
 import 'features/daily_news/data/data_sources/remote/news_api_service.dart';
@@ -16,8 +19,9 @@ Future<void> initdependencies() async {
   try {
     log.info('Starting dependency initialization');
 
-    // final database=await $FloorAppDatabase.databaseBuilder("app_database.db").build();
-    // sl.registerSingleton<AppDatabase>(database);
+    final database =
+        await $FloorAppDatabase.databaseBuilder("app_database.db").build();
+    sl.registerSingleton<AppDatabase>(database);
     log.info('Registered DataBase');
 
     // Init DIO with base URL
@@ -33,7 +37,7 @@ Future<void> initdependencies() async {
 
     // Concrete Article Repo
     sl.registerSingleton<ArticleRepo>(
-      ArticleRepoImpl(sl<NewsApiService>()),
+      ArticleRepoImpl(sl<NewsApiService>(), sl<AppDatabase>()),
     );
     log.info('Registered ArticleRepo');
 
@@ -42,13 +46,20 @@ Future<void> initdependencies() async {
       GetArticleUsecase(sl<ArticleRepo>()),
     );
     log.info('Registered GetArticleUsecase');
+    sl.registerSingleton<GetSavedArticlesUsecase>(
+      GetSavedArticlesUsecase(sl<ArticleRepo>()),
+    );
+    log.info('Registered GetSavedArticlesUsecase');
 
     // RemoteArticleBloc
     sl.registerFactory<RemoteArticleBloc>(
-          () => RemoteArticleBloc(sl<GetArticleUsecase>()),
+      () => RemoteArticleBloc(sl<GetArticleUsecase>()),
     );
     log.info('Registered RemoteArticleBloc');
-
+    sl.registerFactory<LocalArticlesBloc>(
+          () => LocalArticlesBloc(sl<GetSavedArticlesUsecase>()),
+    );
+    log.info('Registered LocalArticlesBloc');
     log.info('Completed dependency initialization');
   } catch (e, stackTrace) {
     log.severe('Error during dependency registration', e, stackTrace);
